@@ -1,28 +1,24 @@
-// 'use client'
-import {  FC, Fragment } from 'react'
+'use client'
+import { ChangeEvent, FC, Fragment } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Metadata } from 'next'
 import Input from '@/components/Input/Input'
 import { useSnapshot } from 'valtio'
-import { LoginStore } from '@/store/auth/login'
+import { Login, LoginStore } from '@/store/auth/login'
+import { NonFunctionProperties } from '../../../types/types'
 
-export const metadata: Metadata = {
-	title: 'Login | UNFV Internship manager',
-	description: 'Login Page'
-}
-
-
-
-// const handleOnChangeValues = ({currentTarget}: ChangeEvent<HTMLInputElement>) => {
-// 	console.log('🚀 Carlos Raez -> file: page.tsx:13 -> handleOnChangeValues -> value:', currentTarget.value)
-
+// import { Metadata } from 'next'
+// export const metadata: Metadata = {
+// 	title: 'Login | UNFV Internship manager',
+// 	description: 'Login Page'
 // }
+
+
+const handleOnChangeValues = ({ target }: ChangeEvent<HTMLInputElement>) => LoginStore.updateForm(target.name as keyof NonFunctionProperties<Login>, target.value)
 
 const LoginPage: FC = () => {
 
-	const {email,password} = useSnapshot(LoginStore)
-
+	const { email, password } = useSnapshot(LoginStore)
 	return (
 		<Fragment>
 			<div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -35,7 +31,7 @@ const LoginPage: FC = () => {
 									src={'https://www.unfv.edu.pe/images/logo_aniversario.png'}
 									alt="Logo"
 									width={176}
-									height={56}
+									height={55}
 									loading="lazy"
 								/>
 								<Image
@@ -43,7 +39,7 @@ const LoginPage: FC = () => {
 									src={'https://www.unfv.edu.pe/images/logo_aniversario.png'}
 									alt="Logo"
 									width={176}
-									height={32}
+									height={55}
 									loading="lazy"
 								/>
 							</Link>
@@ -187,6 +183,7 @@ const LoginPage: FC = () => {
 
 								<Input
 									label='Email'
+									name='email'
 									value={email}
 									type='email'
 									placeholder="Enter your email"
@@ -207,12 +204,12 @@ const LoginPage: FC = () => {
 											</g>
 										</svg>
 									}
-									// onChangeValue={handleOnChangeValues}
+									onChangeValue={handleOnChangeValues}
 								/>
-
-								{/* <Input
+								<Input
 									label='Password'
-									value=''
+									name='password'
+									value={password}
 									type='password'
 									placeholder="Type your password"
 									iconSvg={
@@ -237,11 +234,11 @@ const LoginPage: FC = () => {
 										</svg>
 									}
 									onChangeValue={handleOnChangeValues}
-								/> */}
+								/>
 
 								<div className="mb-5">
 									<button
-										type="submit"										
+										type="submit"
 										className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
 									>
 										Sign In
@@ -276,7 +273,7 @@ const LoginPage: FC = () => {
 												d="M35.883,7.341C37.726,7.85,39,9.508,39,11.397v25.162c0,1.906-1.301,3.57-3.168,4.065	L24.29,43.863L28,36V11l-3.148-6.885L35.883,7.341z" /><linearGradient id="Yjxgqidz2JT1PABcYtFE5b" x1="13.922" x2="29.051" y1="34.951" y2="41.073" gradientUnits="userSpaceOnUse"><stop offset="0" stopColor="#f52537" /><stop offset=".293" stopColor="#f32536" /><stop offset=".465" stopColor="#ea2434" /><stop offset=".605" stopColor="#dc2231" /><stop offset=".729" stopColor="#c8202c" /><stop offset=".841" stopColor="#ae1e25" /><stop offset=".944" stopColor="#8f1a1d" /><stop offset="1" stopColor="#7a1818" /></linearGradient><path fill="url(#Yjxgqidz2JT1PABcYtFE5b)" d="M28,35v3.927c0,3.803-3.824,6.249-7.019,4.491l-6.936-4.445	c-0.802-0.466-1.236-1.462-0.964-2.457C13.334,35.59,14.202,35,15.115,35H28z" /><linearGradient id="Yjxgqidz2JT1PABcYtFE5c" x1="5.382" x2="25.874" y1="32.289" y2="1.78" gradientUnits="userSpaceOnUse"><stop offset="0" stopColor="#d96ab1" /><stop offset=".137" stopColor="#d9538b" /><stop offset=".495" stopColor="#d91a2a" /><stop offset=".575" stopColor="#d31a29" /><stop offset=".68" stopColor="#c21926" /><stop offset=".8" stopColor="#a71821" /><stop offset=".929" stopColor="#811619" /><stop offset="1" stopColor="#691515" /></linearGradient><path fill="url(#Yjxgqidz2JT1PABcYtFE5c)" d="M21.946,4.526l-11.924,6.786C8.772,12.024,8,13.351,8,14.789v18.429	c0,1.357,1.459,2.215,2.645,1.554l4.472-2.491C15.662,31.978,16,31.402,16,30.778V17.743c0-1.307,0.78-2.48,1.963-2.949L28,11.308	v-3.09C28,5.014,24.669,2.983,21.946,4.526z" />
 										</svg>
 									</span>
-									Sign in with Google
+									Sign in with Office 365
 								</button>
 
 							</form>

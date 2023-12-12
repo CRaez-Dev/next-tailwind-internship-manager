@@ -1,7 +1,7 @@
 import { NonFunctionProperties } from '@/types/types'
 import { proxy } from 'valtio'
 
-class Login {
+export class Login {
 	email: string = ''
 	password: string = ''
 
