@@ -1,59 +1,25 @@
 'use client'
-import { ChangeEvent, FC, Fragment, useState } from 'react'
+import { ChangeEvent, FC, Fragment } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import Input from '@/components/Input/Input'
-import { useSnapshot } from 'valtio'
-import { Login, LoginStore } from '@/store/auth/login'
-import { NonFunctionProperties } from '../../../types/types'
-import Alert, { AlertType } from '@/components/Alert/Alert'
-import { useRouter } from 'next/navigation'
-
-// import { Metadata } from 'next'
-// export const metadata: Metadata = {
-// 	title: 'Login | UNFV Internship manager',
-// 	description: 'Login Page'
-// }
-
-interface AlertData {
-	success: boolean,
-	msg: Record<string, string>,
-	data: Record<string, unknown>
-}
-const INIT_ALERTDATA: AlertData = {
-	success: true,
-	msg: {
-		title: '',
-		msg: ''
-	},
-	data: {}
-}
+import { SignIn, SignInStore } from '@/store/auth/signin'
+import { NonFunctionProperties } from '@/types/types'
 
 const LoginPage: FC = () => {
-	const [alert, setAlert] = useState(false)
-	const [alertData, setAlertData] = useState<AlertData>(INIT_ALERTDATA)
-	const { email, password } = useSnapshot(LoginStore)
-	const router = useRouter()
+	const email = SignInStore((state) => state.email)
+	const password = SignInStore((state) => state.password)
+	const updateForm = SignInStore((state) => state.updateForm)
 
-	const handleOnChangeValues = ({ target }: ChangeEvent<HTMLInputElement>) => LoginStore.updateForm(target.name as keyof NonFunctionProperties<Login>, target.value)
+	const handleOnChangeValues = ({ target }: ChangeEvent<HTMLInputElement>) => {
+		updateForm(target.name as keyof NonFunctionProperties<SignIn>, target.value)
+	}
 
 	const handleOnSimpleLogin = async () => {
-		const response = await LoginStore.logIn()
-		setAlertData(response)
-		setAlert(true)
-		setTimeout(() => {
-			setAlert(false)
-			router.push('/home')
-		}, 2000)
+
 	}
 	return (
 		<Fragment>
-			{
-				alert &&
-				<div className='absolute top-0 right-0'>
-					<Alert type={alertData.success ? AlertType.SUCCESS : AlertType.DANGER} title={alertData.msg.title} text={alertData.msg.msg} />
-				</div>
-			}
 			<div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
 				<div className="flex flex-wrap items-center">
 					<div className="hidden w-full xl:block xl:w-1/2">
@@ -209,7 +175,7 @@ const LoginPage: FC = () => {
 					<div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
 						<div className="w-full p-4 sm:p-12.5 xl:p-17.5">
 							<h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2 text-center">
-								Log In to Internship Manager
+								Sign In to Internship Manager
 							</h2>
 
 							<form>
@@ -237,7 +203,7 @@ const LoginPage: FC = () => {
 											</g>
 										</svg>
 									}
-									onChangeValue={handleOnChangeValues}
+									onChangeValue={(e) => handleOnChangeValues(e)}
 								/>
 								<Input
 									label='Password'
@@ -275,7 +241,7 @@ const LoginPage: FC = () => {
 										className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
 										onClick={handleOnSimpleLogin}
 									>
-										Log In
+										Sign In
 									</button>
 								</div>
 

@@ -1,3 +1,4 @@
+'use client'
 import React, { ChangeEvent, FC, HTMLInputTypeAttribute, ReactNode } from 'react'
 
 interface InputProps {
@@ -7,7 +8,7 @@ interface InputProps {
 	placeholder: string,
 	value: string,
 	iconSvg?: ReactNode,
-	onChangeValue?: (e: ChangeEvent<HTMLInputElement>) => void
+	onChangeValue: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
 const Input: FC<InputProps> = ({ label,name, type, placeholder, value, iconSvg, onChangeValue }) => {
@@ -23,7 +24,7 @@ const Input: FC<InputProps> = ({ label,name, type, placeholder, value, iconSvg, 
 					placeholder={placeholder}
 					className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
 					value={value}
-					onChange={onChangeValue}
+					onChange={(e) => onChangeValue(e)}
 				/>
 
 
