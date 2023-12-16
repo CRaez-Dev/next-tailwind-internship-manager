@@ -1,18 +1,38 @@
 'use client'
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { useSnapshot } from 'valtio'
-import { Login, LoginStore } from '@/store/auth/login'
+
 import Input from '@/components/Input/Input'
+import Alert, { AlertData, AlertType, INIT_ALERTDATA } from '@/components/Alert/Alerts'
+
+import { Login, LoginStore } from '@/store/auth/login'
 import { NonFunctionProperties } from '@/types/types'
 
 const LoginForm = () => {
+	const [alertData, setAlertData] = useState<AlertData>(INIT_ALERTDATA)
+
+	const router = useRouter()
 	const { email, password } = useSnapshot<Login>(LoginStore)
 
 	const handleOnChangeValues = ({ target }: ChangeEvent<HTMLInputElement>) => LoginStore.updateForm(target.name as keyof NonFunctionProperties<Login>, target.value)
 
-	return (
-		<form>
+	const handleOnSimpleLogin = async () => {
+		const response = await LoginStore.logIn()
+		setAlertData({ ...response, show: true })
+		router.push('/home')		
+	}
 
+	return (
+
+		<form>
+			{
+				alertData.show &&
+				<Alert handleDisplay={() => {
+					setAlertData((e: AlertData) => ({ ...e, show: false }))
+				}} delay={3000} type={alertData.success ? AlertType.SUCCESS : AlertType.DANGER} title={alertData.msg.title} text={alertData.msg.msg} />
+
+			}
 			<Input
 				label='Email'
 				name='email'
@@ -70,8 +90,9 @@ const LoginForm = () => {
 
 			<div className="mb-5">
 				<button
-					type="submit"
+					type="button"
 					className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
+					onClick={handleOnSimpleLogin}
 				>
 					LogIn
 				</button>
