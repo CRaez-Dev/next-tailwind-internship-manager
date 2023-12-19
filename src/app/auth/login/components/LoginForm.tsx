@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import { useSnapshot } from 'valtio'
 
 import Input from '@/components/Input/Input'
-import Alert, { AlertData, AlertType, INIT_ALERTDATA } from '@/components/Alert/Alerts'
+import Alert, { AlertData, AlertType, INIT_ALERTDATA } from '@/components/Alert/Alert'
 
 import { Login, LoginStore } from '@/store/auth/login'
 import { NonFunctionProperties } from '@/types/types'

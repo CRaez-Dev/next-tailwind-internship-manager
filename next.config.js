@@ -23,6 +23,19 @@ module.exports = {
 				destination: '/auth/login',
 				permanent: true,
 			},
+
+			{
+				source: '/profile',
+				destination: '/home/profile',
+				permanent: true,
+			},
+
+			{
+				source: '/reset-password',
+				destination: '/home/settings/reset-password',
+				permanent: true,
+			},
+			
 		]
 	},
 	images: {
@@ -33,7 +46,10 @@ module.exports = {
 				port: '',
 				pathname: '/images/**',
 			},
-		],		
+		],
+	},
+	compiler: {
+		styledComponents: true,
 	},
 	
 }
