@@ -12,6 +12,11 @@ module.exports = {
 				destination: '/home/dashboard',
 				permanent: true,
 			},
+			{
+				source: '/dashboard',
+				destination: '/home/dashboard',
+				permanent: true,
+			},
 
 			{
 				source: '/login',
@@ -35,7 +40,33 @@ module.exports = {
 				destination: '/home/settings/reset-password',
 				permanent: true,
 			},
-			
+
+			{
+				source: '/letters',
+				destination: '/home/ppp/letters',
+				permanent: true,
+			},
+			{
+				source: '/direct-boss',
+				destination: '/home/ppp/direct-boss',
+				permanent: true,
+			},
+
+			{
+				source: '/ppp',
+				destination: '/home/reports/ppp',
+				permanent: true,
+			},
+			{
+				source: '/control-sheet',
+				destination: '/home/reports/control-sheet',
+				permanent: true,
+			},
+			{
+				source: '/final-report',
+				destination: '/home/reports/final-report',
+				permanent: true,
+			},
 		]
 	},
 	images: {
@@ -51,5 +82,4 @@ module.exports = {
 	compiler: {
 		styledComponents: true,
 	},
-	
 }
