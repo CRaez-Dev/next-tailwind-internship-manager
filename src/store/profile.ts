@@ -1,4 +1,4 @@
-import { NonFunctionProperties, RequestStatus } from '@/types/types'
+import { Icons, NonFunctionProperties, RequestStatus } from '@/types/types'
 import { proxy } from 'valtio'
 
 export interface UserProfile {
@@ -17,12 +17,14 @@ export interface UserProfile {
 
 export interface ProfileAccess {
 	id: number,
+	isMain: boolean,
+	icon?: Icons ,
 	name: string,
-	route: string,
-	children: ProfileAccess[]
+	route?: string,
+	children?: ProfileAccess[]
 }
 
-const INIT_FAKE_PROFILE_DATA: UserProfile = {
+const USERPROFILE_INIT_FAKE: UserProfile = {
 	name: 'John',
 	lastName: 'Doe',
 	studentCode: '2023000000',
@@ -35,6 +37,65 @@ const INIT_FAKE_PROFILE_DATA: UserProfile = {
 	city: 'LIMA',
 	state: 'LIMA'
 }
+
+const USERPROFILEACCESS_INIT_FAKE: ProfileAccess[] = [
+	{
+		id: 1,
+		isMain: true,
+		icon: Icons.dashboard,
+		name: 'Dashboard',
+		route: '/dashboard'
+	},
+	{
+		id: 2,
+		isMain: true,
+		name: 'PPP',
+		icon: Icons.forms,
+		children: [
+			{
+				id: 3,
+				isMain: false,
+				name: 'Cartas',
+				route: '/letters'
+			},
+			{
+				id: 4,
+				isMain: false,
+				name: 'Jefe Inmediato',
+				route: '/direct-boss'
+			}
+		]
+
+	},
+	{
+		id: 5,
+		isMain: true,
+		icon: Icons.report,
+		name: 'Reportes',
+		children: [
+			{
+				id: 6,
+				isMain: false,
+				name: 'Informe de PPP',
+				route: '/ppp'
+			},
+			{
+				id: 7,
+				isMain: false,
+				name: 'Ficha de control',
+				route: '/control-sheet'
+			},
+			{
+				id: 8,
+				isMain: false,
+				name: 'Informe Final',
+				route: '/final-report'
+			}
+		]
+
+	},
+
+]
 
 const USERPROFILE_INIT: UserProfile = {
 	name: 'John',
@@ -51,22 +112,27 @@ const USERPROFILE_INIT: UserProfile = {
 }
 
 export class Profile {
-	profile: UserProfile = USERPROFILE_INIT
-	profileStatus: RequestStatus = RequestStatus.idle
-
+	profileData: UserProfile = USERPROFILE_INIT
+	profileDataStatus: RequestStatus = RequestStatus.idle
+	profileAccess: ProfileAccess[] = []
+	profileAccessStatus: RequestStatus = RequestStatus.idle
 	async getProfileData() {
-		// TODO: some process to Login
-		this.profile = INIT_FAKE_PROFILE_DATA
+		try {
+			this.profileDataStatus = RequestStatus.loading
+			this.profileData = USERPROFILE_INIT_FAKE
+			this.profileDataStatus = RequestStatus.ready
+		} catch (error) {
+			this.profileDataStatus = RequestStatus.failed
+		}
 	}
 
 	async getProfileAccess() {
 		try {
-			this.profileStatus = RequestStatus.loading
-			this.profile = INIT_FAKE_PROFILE_DATA
-			// this.profileStatus = RequestStatus.ready
-			throw new Error('example')
+			this.profileAccessStatus = RequestStatus.loading
+			this.profileAccess = USERPROFILEACCESS_INIT_FAKE
+			this.profileAccessStatus = RequestStatus.ready
 		} catch (error) {
-			this.profileStatus = RequestStatus.failed
+			this.profileAccessStatus = RequestStatus.failed
 			throw error as Error
 		}
 	}

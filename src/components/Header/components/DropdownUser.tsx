@@ -37,13 +37,14 @@ const DropdownUser = () => {
 		return () => document.removeEventListener('keydown', keyHandler)
 	})
 
-	const handleOnLogout = () => {
+
+	const handleOnLogout = () => {		
 		router.push('/login')
 	}
 
 
 	return (
-		<div className="relative">
+		<div className="relative" >
 			<div
 				ref={trigger}
 				onClick={() => setDropdownOpen(!dropdownOpen)}

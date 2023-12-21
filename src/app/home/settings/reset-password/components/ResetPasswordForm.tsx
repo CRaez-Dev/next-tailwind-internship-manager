@@ -17,8 +17,8 @@ const ResetPasswordForm = () => {
 
 
 	return (
-		<form >
-			<div className="overflow-hidden rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark p-6">
+		<div className="overflow-hidden rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark p-6">
+			<form>
 
 				<Input
 					label='Password'
@@ -88,8 +88,8 @@ const ResetPasswordForm = () => {
 						Reset password
 					</button>
 				</div>
-			</div>
-		</form>
+			</form>
+		</div>
 	)
 }
 

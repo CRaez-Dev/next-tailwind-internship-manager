@@ -1,8 +1,11 @@
-import React from 'react'
+import Icon from '@/components/Icons'
+import { FC, Fragment } from 'react'
 
-const DashboardPage = () => {
+const DashboardPage: FC = () => {
 	return (
-		<div>DashboardPage</div>
+		<Fragment>
+			<Icon />
+		</Fragment>
 	)
 }
 

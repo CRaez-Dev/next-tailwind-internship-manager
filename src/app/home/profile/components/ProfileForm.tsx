@@ -4,9 +4,10 @@ import Image from 'next/image'
 import { useSnapshot } from 'valtio'
 import { ProfileStore, UserProfile } from '@/store/profile'
 import { formatCamelCaseToUpperCase } from '@/utils/utils'
+import { RequestStatus } from '@/types/types'
 
 const ProfileForm: FC = () => {
-	const { profile } = useSnapshot(ProfileStore)
+	const { profileData,profileDataStatus } = useSnapshot(ProfileStore)
 
 	useEffect(() => {
 		ProfileStore.getProfileData()
@@ -14,7 +15,7 @@ const ProfileForm: FC = () => {
 
 	return (
 		<>
-			{profile &&
+			{ profileDataStatus === RequestStatus.ready &&
 				<div className="overflow-hidden rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark pt-4">
 
 					<div className="px-6 pb-6 text-center flex flex-col lg:pb-8 xl:pb-11.5">
@@ -32,18 +33,18 @@ const ProfileForm: FC = () => {
 
 						<div className='text-left mt-4'>
 							<h3 className="mb-1.5 text-2xl font-semibold text-black dark:text-white">
-								{`${profile.name} ${profile.lastName}`}
+								{`${profileData.name} ${profileData.lastName}`}
 							</h3>
 
 							{
-								Object.keys(profile).map((key, index) => {
+								Object.keys(profileData).map((key, index) => {
 									return (
 										<div key={index} className="mt-4 flex flex-row gap-4">
 											<h4 className="font-semibold text-black dark:text-white">
 												{formatCamelCaseToUpperCase(key)}:
 											</h4>
 											<p>
-												{profile[key as keyof UserProfile]}
+												{profileData[key as keyof UserProfile]}
 											</p>
 										</div>
 									)
