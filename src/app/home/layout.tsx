@@ -1,15 +1,34 @@
+import Header from '@/components/Header/Header'
+import Sidebar from '@/components/Sidebar/Sidebar'
 import React from 'react'
 
 const HomeLayout = ({ children }: {
 	children: React.ReactNode
 }) => {
 	return (
-		<section>
-			{/* Include shared UI here e.g. a header or sidebar */}
-			<nav>HomeLayout</nav>
+		<div className="dark:bg-boxdark-2 dark:text-bodydark">
+			<div className="flex h-screen overflow-hidden">
+				{/* <!-- ===== Sidebar Start ===== --> */}
+				<Sidebar />
+				{/* <!-- ===== Sidebar End ===== --> */}
 
-			{children}
-		</section>
+				{/* <!-- ===== Content Area Start ===== --> */}
+				<div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
+					{/* <!-- ===== Header Start ===== --> */}
+					<Header />
+					{/* <!-- ===== Header End ===== --> */}
+
+					{/* <!-- ===== Main Content Start ===== --> */}
+					<main>
+						<div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10 ">
+							{children}
+						</div>
+					</main>
+					{/* <!-- ===== Main Content End ===== --> */}
+				</div>
+				{/* <!-- ===== Content Area End ===== --> */}
+			</div>
+		</div>
 	)
 }
 

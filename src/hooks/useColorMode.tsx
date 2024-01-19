@@ -3,8 +3,8 @@ import { useEffect } from 'react'
 import useLocalStorage from './useLocalStorage'
 
 const useColorMode = () => {
-	const [colorMode, setColorMode] = useLocalStorage('color-theme', 'light')
-
+	const [colorMode, setColorMode] = useLocalStorage<string>('color-theme', 'light')
+	
 	useEffect(() => {
 		const className = 'dark'
 		const bodyClass = window.document.body.classList
@@ -14,7 +14,7 @@ const useColorMode = () => {
 			: bodyClass.remove(className)
 	}, [colorMode])
 
-	return [colorMode, setColorMode]
+	return [colorMode, setColorMode] as const
 }
 
 export default useColorMode

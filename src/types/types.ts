@@ -5,3 +5,18 @@ type NonFunctionPropertyNames<T> = {
 }[keyof T]
 
 export type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>
+
+export enum RequestStatus {
+	idle,
+	loading,
+	failed,
+	ready
+}
+
+export enum Icons {
+	dashboard,
+	forms,
+	report,
+	profile,
+	setting
+}

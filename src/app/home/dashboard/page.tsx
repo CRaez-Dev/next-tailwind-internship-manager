@@ -1,8 +1,10 @@
-import React from 'react'
+import { FC, Fragment } from 'react'
 
-const DashboardPage = () => {
+const DashboardPage: FC = () => {
 	return (
-		<div>DashboardPage</div>
+		<Fragment>
+			Dashboard
+		</Fragment>
 	)
 }
 

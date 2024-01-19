@@ -5,8 +5,19 @@ export class Login {
 	email: string = ''
 	password: string = ''
 
-	async signIn() {
+	async logIn() {
 		// TODO: some process to Login
+		return {
+			success: true,
+			msg: {
+				title: 'Successfull Login',
+				msg: '',
+			},
+			data: {
+				email: this.email,
+				password: this.password
+			}
+		}
 	}
 
 	updateForm<K extends keyof NonFunctionProperties<this>>(key: K, value: NonFunctionProperties<this>[K]) {
